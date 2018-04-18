@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>DRUM KIT</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        
+        <div data-key="65" class='key'>a</div>
+        <div data-key="83" class='key'>b</div>
+        <div data-key="68" class='key'>c</div>
+
+
+<audio data-key="65" src="sounds/snare.mp3" data-key="65"></audio>
+<audio data-key="83" src="sounds/kick.mp3" data-key="83"></audio>
+<audio data-key="68" src="sounds/crash.mp3" data-key="68"></audio>
+
+
+<script>
+    
+function playSound(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!audio) return;
+    audio.currentTime = 0;
+    audio.play()
+    key.classList.add('playing');
+};
+    
+function removeTransition(e) {
+   if(e.propertyName !== 'transform') return;
+    this.classList.remove('playing');
+};
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+window.addEventListener('keydown', playSound);
+                        
+</script>
+    </body>
+</html>
